@@ -1,20 +1,20 @@
-# Django Project Boilerplate
+# Welcome to Django Ecommerce
 
-This repository is a boilerplate Django project for quickly getting started.
+Hi! I'm your @piyushsingariya on **GitHub**, and you're right now looking at readme.md of my repository named as **Django Ecommerce**
 
-[![alt text](https://github.com/justdjango/django_project_boilerplate/blob/master/thumbnail.png "Logo")](https://www.youtube.com/watch?v=GEogao-tUec)
+# Environment
 
-## Getting started
+This application is fully built on Django framework using a template called **Ecommerce-Template-Bootstrap-master**
 
-Steps:
+## Features
 
-1. Clone/pull/download this repository
-2. Create a virtualenv with `virtualenv env` and install dependencies with `pip install -r requirements.txt`
-3. Configure your .env variables
-4. Rename your project with `python manage.py rename <yourprojectname> <newprojectname>`
+ - User Login System
+ - Automated product display
+ - Automated Cart system
+I am still working on it, so more features will be uploaded in future
 
-This project includes:
+## Libraries
 
-1. Settings modules for deploying with Azure
-2. Django commands for renaming your project and creating a superuser
-3. A cli tool for setting environment variables for deployment
+I'll add after some time
+
+
