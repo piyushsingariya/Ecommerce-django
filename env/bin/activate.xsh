@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/home/nectar/Backend/Ecommerce/env"
+$VIRTUAL_ENV = r"/home/nectar/Backend/Ecommerce-django/env"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]
