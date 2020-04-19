@@ -1,4 +1,4 @@
-#!/home/nectar/Backend/django_project_boilerplate/env/bin/python3
+#!/home/nectar/Backend/Ecommerce/env/bin/python3.6
 # -*- coding: utf-8 -*-
 import re
 import sys

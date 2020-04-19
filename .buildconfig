@@ -1,0 +1,10 @@
+[default]
+name=Default
+runtime=host
+config-opts=
+run-opts=
+prefix=/home/nectar/.cache/gnome-builder/install/Ecommerce/host
+app-id=
+postbuild=
+prebuild=
+default=true

@@ -1,4 +1,4 @@
-#!/home/nectar/Backend/django_project_boilerplate/env/bin/python
+#!/home/nectar/Backend/Ecommerce/env/bin/python
 
 import sys
 import getopt

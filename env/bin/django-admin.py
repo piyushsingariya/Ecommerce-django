@@ -1,4 +1,4 @@
-#!/home/nectar/Backend/django_project_boilerplate/env/bin/python3
+#!/home/nectar/Backend/Ecommerce/env/bin/python3.6
 from django.core import management
 
 if __name__ == "__main__":
