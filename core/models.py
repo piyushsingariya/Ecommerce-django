@@ -30,19 +30,27 @@ class Item(models.Model):
     description = models.TextField(default="This is a Fake Description")
     bestseller = models.BooleanField(default=False)
     isNewItem = models.BooleanField(default=True)
+
     def __str__(self):
         return self.title
     def get_absolute_url(self):
         return reverse("core:product", kwargs={
             'slug': self.slug
         })
+    def get_add_to_cart_url(self):
+        return reverse("core:add-to-cart", kwargs={
+            'slug': self.slug
+        })
 
 """ Items which are being ordered"""
 class OrderItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.title
+        return f"{self.quantity} of {self.item.title}"
 
 """ All ordered Items together like a shopping cart"""
 class Order(models.Model):
