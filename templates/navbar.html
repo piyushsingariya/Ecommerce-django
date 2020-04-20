@@ -24,38 +24,46 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="checkout/" >Checkout</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="product/">Products</a>
+            <a class="nav-link waves-effect" href="checkout/">Checkout</a>
           </li>
         </ul>
 
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
+          {% if request.user.is_authenticated %}
+            <li class="nav-item mr-2">
             <a class="nav-link waves-effect">
               <span class="badge red z-depth-1 mr-1"> 1 </span>
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> Cart </span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-              <i class="fab fa-facebook-f"></i>
+            </li>
+            <li class="nav-item mr-2">
+            <a class="nav-link border border-light rounded waves-effect" href="{% url 'account_logout' %}">
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block "> LogOut </span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-              <i class="fab fa-twitter"></i>
+            </li>
+          {% else %}
+            <li class="nav-item mr-2">
+            <a class="nav-link border border-light rounded waves-effect" href="{% url 'account_login' %}">
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block"> LogIN </span>
             </a>
-          </li>
-          <li class="nav-item">
+            </li>
+            <li class="nav-item">
+            <a class="nav-link border border-light rounded waves-effect" href="{% url 'account_signup' %}">
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block"> SignUp </span>
+            </a>
+            </li>
+          <li class="nav-item ml-2">
             <a href="https://github.com/piyushsingariya/Ecommerce-django" class="nav-link border border-light rounded waves-effect"
               target="_blank">
               <i class="fab fa-github mr-2"></i>E1-Commerce GitHub
             </a>
           </li>
+          {% endif %}
         </ul>
 
       </div>
