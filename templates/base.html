@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-<html>
     {% include "head.html" %}
 
     <body>
@@ -23,6 +22,9 @@
     
     {% endblock content %}
     {% include "footer.html" %}
-    {% include "scripts.html" %}    
+    {% include "scripts.html" %}
+    {% block extra_body %}
+{% endblock %}
+
     </body>
 </html>

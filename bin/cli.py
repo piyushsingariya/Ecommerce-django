@@ -45,7 +45,7 @@ def main(check_env, deploying):
             exit()
 
     # if check_env:
-        # subprocess.call("grep -v '^#' .env | xargs")
+    # subprocess.call("grep -v '^#' .env | xargs")
 
     migrate = input("Migrate the database? [y/n]: ")
     if migrate == 'y':
