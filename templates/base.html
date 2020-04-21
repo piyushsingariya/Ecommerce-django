@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 
-    {% include "head.html" %}
+{% include "head.html" %}
 
-    <body>
-    <div class="mt-5 pt-4">
+<body>
+<div class="mt-5 pt-4">
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-              {{ message }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-        {% endfor %}
-    </ul>
+        <ul class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        </ul>
     {% endif %}
-    </div>
-    {% include "navbar.html" %}
-    {% block content %}
-    
-    {% endblock content %}
-    {% include "footer.html" %}
-    {% include "scripts.html" %}
-    {% block extra_body %}
+</div>
+{% include "navbar.html" %}
+{% block content %}
+
+{% endblock content %}
+{% include "footer.html" %}
+{% include "scripts.html" %}
+{% block extra_body %}
 {% endblock %}
 
-    </body>
-</html>
+</body>

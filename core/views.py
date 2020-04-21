@@ -6,6 +6,7 @@ from django.contrib import messages
 
 class IndexView(ListView):
     model = Item
+    paginate_by = 4
     template_name = "index.html"
 
 class ItemDetailView(DetailView):

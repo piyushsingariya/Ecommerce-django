@@ -89,6 +89,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
-
+LOGIN_REDIRECT_URL = '/'
 # For Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
