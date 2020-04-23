@@ -71,6 +71,7 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
+    billing_address = models.ForeignKey('BillingAddress', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -79,3 +80,17 @@ class Order(models.Model):
         for order_item in self.items.all():
             total += order_item.get_total_price()
         return total
+
+
+
+class BillingAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    email = models.EmailField()
+    address = models.TextField()
+    address2 = models.TextField(blank=True, null=True)
+    state = models.CharField(max_length=200, blank=True, null=True)
+    district = models.CharField(max_length=200, blank=True, null=True)
+    zipcode = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

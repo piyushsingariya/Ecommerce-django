@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Item, Order, OrderItem
+from .models import Item, Order, OrderItem, BillingAddress
 from django.utils import timezone
 from django.contrib import messages
 from .forms import CheckoutForm
@@ -162,6 +162,36 @@ class CheckoutView(View):
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
-        if form.is_valid():
-            print("The form is valid")
+        # print(self.request.POST)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if form.is_valid():
+                # print(form.cleaned_data)
+                # print("The form is valid")
+                email = form.cleaned_data.get('email')
+                address = form.cleaned_data.get('address')
+                address2 = form.cleaned_data.get('address2')
+                state = form.cleaned_data.get('state')
+                district = form.cleaned_data.get('district')
+                zipcode = form.cleaned_data.get('zipcode')
+                # same_billing_address = form.cleaned_data.get('same_billing_address')
+                # save_info = form.cleaned_data.get('save_info')
+                payment_option = form.cleaned_data.get('payment_option')
+                billing_address = BillingAddress(
+                    user=self.request.user,
+                    email=email,
+                    address=address,
+                    address2=address2,
+                    state=state,
+                    district=district,
+                    zipcode=zipcode,
+                )
+                billing_address.save()
+                order.billing_address = billing_address
+                order.save()
+                return redirect('core:checkout-page')
+            messages.warning(self.request, "Failed checkout!!!!")
             return redirect('core:checkout-page')
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You do not have an active order")
+            return redirect("core:order-summary")
