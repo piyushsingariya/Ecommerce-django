@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Item, Order, OrderItem
 from django.utils import timezone
 from django.contrib import messages
-
+from .forms import CheckoutForm
 
 class IndexView(ListView):
     model = Item
@@ -152,5 +152,16 @@ def products(request):
     return render(request, "products.html", context)
 
 
-def checkout(request):
-    return render(request, "checkout.html", {})
+class CheckoutView(View):
+    def get(self, *args, **kwargs):
+        form  = CheckoutForm()
+        context = {
+            'form':form
+        }
+        return render(self.request, "checkout.html", context)
+
+    def post(self, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        if form.is_valid():
+            print("The form is valid")
+            return redirect('core:checkout-page')
