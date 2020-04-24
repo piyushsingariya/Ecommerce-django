@@ -3,10 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Item, Order, OrderItem, BillingAddress
+from .models import Item, Order, OrderItem, BillingAddress, Coupon
 from django.utils import timezone
 from django.contrib import messages
-from .forms import CheckoutForm
+from .forms import CheckoutForm, CouponForm
 
 class IndexView(ListView):
     model = Item
@@ -154,11 +154,19 @@ def products(request):
 
 class CheckoutView(View):
     def get(self, *args, **kwargs):
-        form  = CheckoutForm()
-        context = {
-            'form':form
-        }
-        return render(self.request, "checkout.html", context)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            form = CheckoutForm()
+            couponform = CouponForm()
+            context = {
+                'form': form,
+                'couponform': couponform,
+                'order': order
+            }
+            return render(self.request, "checkout.html", context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order")
+            return redirect("core:checkout-page")
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
@@ -193,5 +201,41 @@ class CheckoutView(View):
             messages.warning(self.request, "Failed checkout!!!!")
             return redirect('core:checkout-page')
         except ObjectDoesNotExist:
-            messages.error(self.request, "You do not have an active order")
+            messages.warning(self.request, "You do not have an active order")
             return redirect("core:order-summary")
+
+class PaymentView(View):
+    def get(self, *args, **kwargs):
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        if order.billing_address:
+            context = {
+                'order': order,
+            }
+            return render(self.request, "payment-page.html", context)
+        else:
+            messages.warning(self.request, "You have not added a billing address")
+            return redirect("core:checkout-page")
+
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        return coupon
+    except ObjectDoesNotExist:
+        messages.info(request, "This coupon does not exist")
+        return redirect("core:checkout-page")
+
+class AddCouponView(View):
+    def post(self, *args, **kwargs):
+        form = CouponForm(self.request.POST or None)
+        if form.is_valid():
+            try:
+                code = form.cleaned_data.get('code')
+                order = Order.objects.get(user=self.request.user, ordered=False)
+                order.coupon = get_coupon(self.request, code=code)
+                order.save()
+                messages.info(self.request, "This coupon successfully applied")
+                return redirect("core:checkout-page")
+
+            except ObjectDoesNotExist:
+                messages.info(self.request, "You do not have an active order")
+                return redirect("core:checkout-page")
