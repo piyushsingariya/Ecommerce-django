@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, OrderItem, Order, Coupon
+from .models import Item, OrderItem, Order, Coupon, Payment
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -23,7 +23,11 @@ class OrderAdmin(admin.ModelAdmin):
                    'refund_granted']
 
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'stripe_charge_id']
+
 admin.site.register(Item)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
 admin.site.register(Coupon)
+admin.site.register(Payment, PaymentAdmin)

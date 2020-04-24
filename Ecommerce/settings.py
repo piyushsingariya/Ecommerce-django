@@ -92,3 +92,4 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 # For Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+STRIPE_SECRET_KEY = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
