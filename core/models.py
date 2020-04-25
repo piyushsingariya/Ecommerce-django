@@ -121,3 +121,13 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.stripe_charge_id
+
+
+class Refund(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    reason = models.TextField()
+    accepted = models.BooleanField(default=False)
+    email = models.EmailField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    def __str__(self):
+        return f"{self.pk}"
